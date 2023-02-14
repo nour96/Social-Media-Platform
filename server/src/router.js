@@ -2,14 +2,16 @@
 // const router = express.Router();
 
 import { Router } from 'express'
-export const router = Router();
+import { signup } from './controllers/signup.js';
+import { login } from './controllers/login.js';
+
+ const router = Router();
 
 router.get('/', (req, res) => {
     res.send('Hello !')
 })
 
-router.get('/newuser', async (req, res) => {
+router.post('/signup', signup)
+router.post('/login', login)
 
-})
-
-// export default router;
+export default router;

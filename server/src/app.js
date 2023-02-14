@@ -1,6 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
-import router from './router'
+import router from './router.js'
 
 const app = express();
 
@@ -15,6 +15,9 @@ db.once("open", () => {
     console.log("Database Connected!")
 })
 
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }));
+// app.use(compresion());
 app.use('/api', router);
 
 

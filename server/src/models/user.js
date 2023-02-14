@@ -2,17 +2,30 @@ import mongoose from 'mongoose'
 import { Schema } from 'mongoose'
 
 const UserSchema = new Schema({
-    userName: String,
-    password: String,
+    userName: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
     firstName: String,
     lastName: String,
-    email: String,
+    email: {
+        type: String,
+        unique: true,
+        required: true
+    },
     avatar: String,
     posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
     favourites: [{ type: Schema.Types.ObjectId, ref: 'Post' }]
 
+}, {
+    strict: "throw"
 })
 
-const userModel = mongoose.model('User', UserSchema)
 
-export default userModel
+
+export default mongoose.model('User', UserSchema)
