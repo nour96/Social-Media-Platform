@@ -1,7 +1,6 @@
 import User from "../models/user.js"
 import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-
+import generateJWT from "../middlewares/generateJWT.js";
 
 
 export const login = async (req, res) => {
@@ -11,12 +10,11 @@ export const login = async (req, res) => {
     if (user) {
         const validPassword = await bcrypt.compare(password, user.password)
         if (validPassword) {
-            jwt.sign({ user }, 'this is a good secret', { expiresIn: '1h' }, (err, token) => {
-                if (err) { console.log(err) }
-                console.log(token)
-            })
+            const token = generateJWT(userName);
+            user.accessToken = token;
+            await user.save()
             res.json({ message: "Welcome!" })
-        }
+         }
         else {
             res.json({ message: "Try Again!" })
         }

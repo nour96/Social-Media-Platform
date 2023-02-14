@@ -13,5 +13,6 @@ router.get('/', (req, res) => {
 
 router.post('/signup', signup)
 router.post('/login', login)
+router.post('/newPost')
 
 export default router;

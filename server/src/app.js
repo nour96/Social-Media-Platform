@@ -10,9 +10,9 @@ mongoose.connect('mongodb+srv://inourh:12120123@cluster0.xaxokot.mongodb.net/soc
 })
 
 const db = mongoose.connection;
-db.on("error", console.error.bind(console, "Connection Error!"));
+db.on("error", console.error.bind(console, 'Connection Error!'));
 db.once("open", () => {
-    console.log("Database Connected!")
+    console.log('Database Connected!')
 })
 
 app.use(express.json())
