@@ -23,7 +23,6 @@ const UserSchema = new Schema({
         type: String,
         default: null
     },
-    posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
     favourites: [{ type: Schema.Types.ObjectId, ref: 'Post' }]
 
 }, {
