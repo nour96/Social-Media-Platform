@@ -4,10 +4,11 @@ import Post from '../models/post.js'
 export const userProfile = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await User.findById(req.params.id)
+        let user = await User.findById(req.params.id)
         if (!user) {
             res.status(200).json({ message: 'This user does not exist' })
         }
+    
         res.status(200).json()
     } catch (err) {
         res.status(500).json({ message: 'Internal error occured!' })
@@ -32,9 +33,21 @@ export const userPosts = async (req, res) => {
 export const userFavs = async (req, res) => {
     const { id } = req.params;
     try {
-        const { favourites } = await User.findById(id)
-        res.status(200).json(favourites)
+        const posts = await User.findById(id).populate(favourites)
+        res.status(200).json(posts)
     } catch (err) {
         res.status(500).json({ message: 'Internal error occured!' })
+    }
+}
+
+export const logout = async (req, res) => {
+    try {
+        const {userName} = req.decoded;
+        let user = await User.findOne({userName});
+        user.accessToken = "";
+        await user.save()
+        res.status(200).json({message: "User logged out!"})
+    } catch (err) {
+        res.status(500).json({message: err.message})
     }
 }
