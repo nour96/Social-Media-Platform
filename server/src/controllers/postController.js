@@ -1,16 +1,22 @@
 import Post from '../models/post.js'
 
 export const createPost = async (req, res) => {
-    try {
+    
         const { title, content, author } = req.body;
-        const newPost = new Post({
+        try {
+        const post = new Post({
             title,
             content,
             author
         })
 
-        await newPost.save();
-        res.status(200).json(newPost)
+        await post.save();
+        
+        const user = await User.findById(author);
+        user.posts.push(post._id);
+        await user.save();
+
+        res.status(201).json({message: 'Post created', post})
 
     } catch (arr) {
         res.status(500).json({ message: 'Internal error occured!' })
@@ -18,7 +24,7 @@ export const createPost = async (req, res) => {
 }
 
 export const allPosts = async (req, res) => {
-    const posts = await Post.find()
+    const posts = await Post.find().populate('author', 'firstName lastName avatar userName')
     res.status(200).json(posts)
 }
 

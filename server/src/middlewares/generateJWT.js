@@ -4,15 +4,13 @@ const options = {
     expiresIn: '24h'
 }
 
-const generateJWT =  (userName) => {
-    try {
-        const payload = {userName};
-        const token =  jwt.sign(payload, 'This is a good secret', options)
-        return token
-    }
-    catch (err) {
-        
-    }
+const generateJWT = (res, user) => {
+    const { _id, userName } = user;
+    const payload = { _id, userName };
+    const token = jwt.sign(payload, 'FDHFGA486412', options)
+    res.cookie('token', token, { maxAge: 900000, httpOnly: true });
+    console.log(res)
+    return token;
 }
 
 export default generateJWT

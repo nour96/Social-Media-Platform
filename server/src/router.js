@@ -1,5 +1,3 @@
-// const express = require('express');
-// const router = express.Router();
 
 import { Router } from 'express'
 import { signup } from './controllers/signup.js';

@@ -1,8 +1,10 @@
 import React from 'react'
 import { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 import './App.css'
-import { Login } from './components/login.jsx'
-import { Register } from './components/register.jsx';
+import { Login } from './components/Login.jsx'
+import { Register } from './components/Register.jsx';
+import { HomePage } from './pages/home';
 
 function App() {
     const [currentForm, setCurrentForm] = useState('Login')
@@ -11,11 +13,18 @@ function App() {
         setCurrentForm(formName)
     }
     return (
-        <div className='App'>
-            {
-                currentForm === 'login' ? <Login onFormSwitch={toggleForm} /> : <Register onFormSwitch={toggleForm} />
-            }
-        </div>
+        <BrowserRouter>
+            <div className='App'>
+                <main>
+                    <Routes>
+                    <Route path="/" element={<HomePage />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                    </Routes>
+                </main>
+
+            </div>
+        </BrowserRouter>
     )
 }
 

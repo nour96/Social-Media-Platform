@@ -19,10 +19,6 @@ const UserSchema = new Schema({
         required: true
     },
     avatar: String,
-    accessToken: {
-        type: String,
-        default: null
-    },
     favourites: [{ type: Schema.Types.ObjectId, ref: 'Post' }]
 
 }, {

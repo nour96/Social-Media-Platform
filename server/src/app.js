@@ -1,8 +1,13 @@
+import {join} from 'path'
 import express from 'express'
+import cors from 'cors'
+import compresion from 'compression'
+import cookieParser from 'cookie-parser'
 import mongoose from 'mongoose'
 import router from './router.js'
 
 const app = express();
+app.use(cookieParser());
 
 mongoose.connect('mongodb+srv://inourh:12120123@cluster0.xaxokot.mongodb.net/social-network?retryWrites=true&w=majority', {
     useNewUrlParser: true,
@@ -15,14 +20,16 @@ db.once("open", () => {
     console.log('Database Connected!')
 })
 
+app.disable('x-powered-by');
+
 app.use(express.json())
+app.use(compresion());
+app.use(cors())
 app.use(express.urlencoded({ extended: false }));
-// app.use(compresion());
+
 app.use('/api', router);
 
 
-
-
-app.listen(3000, () => {
-    console.log('serving on port 3000')
+app.listen(9080, () => {
+    console.log('serving on port 9080')
 })

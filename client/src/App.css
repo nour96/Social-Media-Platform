@@ -19,6 +19,17 @@
     border-radius: 10px;
     margin: 0.5rem;
   }
+
+  .post-container {
+    max-width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    justify-content: right;
+    background-color: white;
+  } 
+
   
   label {
     text-align: left;

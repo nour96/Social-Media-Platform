@@ -5,24 +5,21 @@ import generateJWT from "../middlewares/generateJWT.js";
 
 export const login = async (req, res) => {
 
-    const { userName, password } = req.body;
-    const user = await User.findOne({ userName })
-    if (user) {
-        const validPassword = await bcrypt.compare(password, user.password)
-        if (validPassword) {
-            const token = generateJWT(userName);
-            user.accessToken = token;
-            await user.save()
-            res.json({ message: "Welcome!" })
-         }
-        else {
-            res.json({ message: "Try Again!" })
+    const { email, password } = req.body;
+
+        const user = await User.findOne({ email })
+        if (user) {
+            const validPassword = await bcrypt.compare(password, user.password)
+            if (validPassword) {
+                generateJWT(res, user);
+                res.status(200).json({ message: "Welcome!" })
+            }
+            else {
+                res.status(401).json({ message: "Either email or password is incorrect, try again." })
+            }
+
+        } else {
+
+            res.status(401).json({ message: "No user found with the given email address." })
         }
-
-    } else {
-
-        res.json({ message: "Try Again!" })
-    }
-
-
 }
