@@ -15,6 +15,7 @@ export const Login = ({ onFormSwitch }) => {
     }
 
     return (
+        <div className='login-register'>
         <div className='auth-form-container'>
             <h2>Login</h2>
             <form className='login-form' onSubmit={handleSubmit}>
@@ -31,5 +32,6 @@ export const Login = ({ onFormSwitch }) => {
                 </a>
             </div>
         </div >
+        </div>
     )
 }

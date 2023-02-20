@@ -23,6 +23,7 @@ export const Register = ({ onFormSwitch }) => {
 
 
     return (
+        <div className='login-register'>
         <div className='auth-form-container'>
             <h2>Register</h2>
             <form className='register-form' onSubmit={handleSubmit}>
@@ -47,6 +48,7 @@ export const Register = ({ onFormSwitch }) => {
                     <button className='link-btn'>Already have an account? Login here.</button>
                 </a>
             </div>
+        </div>
         </div>
     )
 }

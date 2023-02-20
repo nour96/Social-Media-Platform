@@ -1,4 +1,15 @@
-.App{
+/* .login-register {
+  text-align: center;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-image: linear-gradient(79deg, #7439db, #c66fbc 48%, #f7944d)
+} */
+
+
+  .App{
     text-align: center;
     display: flex;
     min-height: 100vh;
@@ -8,52 +19,77 @@
     background-image: linear-gradient(79deg, #7439db, #c66fbc 48%, #f7944d)
   }
 
-  .auth-form-container, .login-form, .register-form {
-    display: flex;
-    flex-direction: column;
-  }
 
-  .auth-form-container {
-    padding: 5rem;
-    border: 1px solid white;
-    border-radius: 10px;
-    margin: 0.5rem;
-  }
 
-  .post-container {
-    max-width: 100%;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    align-items: right;
-    justify-content: right;
-    background-color: white;
-  } 
 
+.auth-form-container,
+.login-form,
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-form-container {
+  padding: 5rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 0.5rem;
+}
+
+.new-post {
+  padding: 1rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 0.5rem;
+}
+
+.post-container {
+  padding: 0.5rem;
   
-  label {
-    text-align: left;
-    padding: 0.25rem 0
-  }
+}
 
-  input {
-    margin: 0.5rem 0;
-    padding: 1rem;
-    border: none;
-    border-radius: 10px;
-  }
-  
-  button {
-    border: none;
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    color: #7439db;
-  }
+.profile-container {
+  display: flex;
+  padding: 1rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 0.5rem;
+  font-size: 20px;
+  color: white; }
 
-  .link-btn {
-    background: none;
-    color: white;
-    text-decoration: underline
-  }
+label {
+  text-align: left;
+  padding: 0.25rem 0
+}
+
+
+
+input {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+}
+
+textarea {
+  margin: 0.5rem 0;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+}
+
+
+button {
+  border: none;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #7439db;
+}
+
+.link-btn {
+  background: none;
+  color: white;
+  text-decoration: underline
+}

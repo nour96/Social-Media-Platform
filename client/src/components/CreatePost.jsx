@@ -4,8 +4,8 @@ import { useState } from 'react'
 import { Box } from '@mui/system'
 
 export const CreatePost = () => {
-    const [title, setTitle] = useState();
-    const [content, setContent] = useState();
+    const [title, setTitle] = useState("");
+    const [content, setContent] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -16,14 +16,38 @@ export const CreatePost = () => {
     }
 
     return (
-        <Box>
-            <form onSubmit={handleSubmit}>
+        <div className="new-post">
+            {/* <form onSubmit={handleSubmit}>
             <div class="MuiInput-root">
                 <input class="MuiInput-input" value={content} onChange={(e) => setContent(e.target.value)}/>
             
                 <input type="submit" value="Submit" />
                 </div>
+            </form> */}
+            <form onSubmit={handleSubmit}>
+                <div>
+                    
+                        <input
+                            name="title"
+                            placeholder='Title'
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)} />
+                    
+                </div>
+                <div>
+                    
+                       
+                        <textarea
+                            name="content"
+                            rows={4}
+                            cols={40}
+                            placeholder="share your thoughts..."
+                            value={content} onChange={(e) => setContent(e.target.value)}
+                        />
+                    </div>
+                <hr />
+                <button>Save post</button>
             </form>
-        </Box>
+        </div>
     )
 }

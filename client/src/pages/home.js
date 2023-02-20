@@ -18,20 +18,20 @@ export const HomePage = () => {
 
     useEffect(() => {
         fetchPosts();
-    }, [])
+    })
 
     const renderedPosts = posts.map((post) => {
-        return <PostCard sx={{ p: 0.5 }} name={post.author.firstName} title={post.title} content={post.content} />
+        return <PostCard sx={{ p: 0.5 }} /*name={post.author.firstName}*/ title={post.title} content={post.content} />
     })
 
     return (
         <Container>
-        <Box>
-            <CreatePost></CreatePost>
-        </Box>
-        <Box>
-            {renderedPosts}
-        </Box>
+            <Box>
+                <CreatePost />
+            </Box>
+            <Box>
+                {renderedPosts}
+            </Box>
         </Container>
     )
 }

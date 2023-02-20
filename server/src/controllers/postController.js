@@ -12,9 +12,9 @@ export const createPost = async (req, res) => {
 
         await post.save();
         
-        const user = await User.findById(author);
-        user.posts.push(post._id);
-        await user.save();
+        // const user = await User.findById(author);
+        // user.posts.push(post._id);
+        // await user.save();
 
         res.status(201).json({message: 'Post created', post})
 

@@ -20,16 +20,16 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 
 
 
-export const PostCard = ({ title, content, name }) => {
+export const PostCard = ({ name, title, content }) => {
 
 
     return (
-
-        <Card sx={{width: 600}}>
+        <div className='post-container'>
+        <Card sx={{ width: 600 }}>
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="A">
-                        {name[0]}
+                        
                     </Avatar>
                 }
 
@@ -50,6 +50,6 @@ export const PostCard = ({ title, content, name }) => {
             </CardActions>
 
         </Card>
-       
+        </div>
     );
 }
