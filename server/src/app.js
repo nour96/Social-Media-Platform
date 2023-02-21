@@ -24,7 +24,10 @@ app.disable('x-powered-by');
 
 app.use(express.json())
 app.use(compresion());
-app.use(cors())
+app.use(cors({
+    credentials: true,
+    origin: 'http://localhost:3000'
+}))
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/api', router);

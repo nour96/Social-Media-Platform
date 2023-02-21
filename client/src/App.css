@@ -1,26 +1,12 @@
-/* .login-register {
+.login-register {
   text-align: center;
   display: flex;
   min-height: 100vh;
   align-items: center;
   justify-content: center;
   color: white;
-  background-image: linear-gradient(79deg, #7439db, #c66fbc 48%, #f7944d)
-} */
-
-
-  .App{
-    text-align: center;
-    display: flex;
-    min-height: 100vh;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    background-image: linear-gradient(79deg, #7439db, #c66fbc 48%, #f7944d)
-  }
-
-
-
+  background-image: linear-gradient(79deg, #7439db, #c66fbc 48%, #f7944d);
+}
 
 .auth-form-container,
 .login-form,
@@ -43,11 +29,6 @@
   margin: 0.5rem;
 }
 
-.post-container {
-  padding: 0.5rem;
-  
-}
-
 .profile-container {
   display: flex;
   padding: 1rem;
@@ -55,14 +36,13 @@
   border-radius: 10px;
   margin: 0.5rem;
   font-size: 20px;
-  color: white; }
+  color: white;
+}
 
 label {
   text-align: left;
-  padding: 0.25rem 0
+  padding: 0.25rem 0;
 }
-
-
 
 input {
   margin: 0.5rem 0;
@@ -78,7 +58,6 @@ textarea {
   border-radius: 10px;
 }
 
-
 button {
   border: none;
   background-color: white;
@@ -88,8 +67,13 @@ button {
   color: #7439db;
 }
 
+.error {
+  font-size: 20px;
+  color: rgb(131, 18, 18);
+}
+
 .link-btn {
   background: none;
   color: white;
-  text-decoration: underline
+  text-decoration: underline;
 }

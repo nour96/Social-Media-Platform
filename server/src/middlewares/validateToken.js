@@ -23,7 +23,7 @@ try {
         res.status(403).json({ message: 'Authorization error!' })
     }
 
-    result = jwt.verify(token, 'This is a good secret', options);
+    result = jwt.verify(token, 'FDHFGA486412', options);
     if (!user.userName === result.userName) {
         res.status(401).json({ message: 'Invalid token!' })
     }
