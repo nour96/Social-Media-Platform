@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 
@@ -10,17 +11,28 @@ export const Register = ({ onFormSwitch }) => {
     const [lastName, setLastName] = useState('')
     const [userName, setUserName] = useState('')
     const [err, setErr] = useState('')
+    const navigate = useNavigate();
+
 
 
 
     const handleSubmit = (event) => {
-        event.preventDefault();
+        // event.preventDefault();
 
         axios.post('http://localhost:9080/api/signup', { firstName, lastName, userName, email, password })
-            .then((res) => { console.log(res) }, (err) => {
-                setErr(err.message)
+            .then((res) => {
+                setErr(null)
+                gotoLoginPage();
+                console.log(res)
+            }, (err) => {
+                console.log(err)
+                const message = err.response.data
+                setErr(message)
             })
     }
+
+    const gotoLoginPage = () => navigate("/login");
+
 
 
     return (

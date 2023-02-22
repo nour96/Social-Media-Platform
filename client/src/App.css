@@ -68,7 +68,8 @@ button {
 }
 
 .error {
-  font-size: 20px;
+  max-width: 400px;
+  font-size: 15px;
   color: rgb(131, 18, 18);
 }
 

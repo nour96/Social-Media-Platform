@@ -21,11 +21,11 @@ export const signup = async (req, res) => {
     } catch (err) {
         if (err.name === 'MongoError' && err.code === 11000) {
             // Duplicate username
-            return res.status(422).json({ message: 'User already exist!' });
+            return res.status(400).json({ message: 'User already exist!' });
         }
 
         // Some other error
-        return res.status(422).json(err.message);
+        return res.status(400).json(err);
     }
 
 }
