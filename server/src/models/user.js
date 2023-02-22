@@ -1,7 +1,6 @@
 import mongoose from 'mongoose'
 import { Schema } from 'mongoose'
 import validator from 'validator'
-
 const UserSchema = new Schema({
     userName: {
         type: String,
@@ -27,6 +26,7 @@ const UserSchema = new Schema({
 }, {
     strict: "throw"
 })
+
 
 
 

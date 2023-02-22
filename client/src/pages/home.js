@@ -6,6 +6,7 @@ import { Grid } from '@mui/material';
 import { CreatePost } from '../components/CreatePost';
 import { Navbar } from '../components/Navbar';
 
+
 export const HomePage = () => {
   const [posts, setPosts] = useState([]);
 

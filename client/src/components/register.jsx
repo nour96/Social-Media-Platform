@@ -40,19 +40,19 @@ export const Register = ({ onFormSwitch }) => {
                 <h2>Register</h2>
                 <form className='register-form' onSubmit={handleSubmit}>
                     <label for='firstName'>First name</label>
-                    <input value={firstName} onChange={(e) => setFirstName(e.target.value)} type='text' placeholder='First name' id='firstName' name='firstName' />
+                    <input required value={firstName} onChange={(e) => setFirstName(e.target.value)} type='text' placeholder='First name' id='firstName' name='firstName' />
 
                     <label for='lastName'>Last name</label>
-                    <input value={lastName} onChange={(e) => setLastName(e.target.value)} type='text' placeholder='Last name' id='lastName' name='lastName' />
+                    <input required value={lastName} onChange={(e) => setLastName(e.target.value)} type='text' placeholder='Last name' id='lastName' name='lastName' />
 
                     <label for='userName'>Username</label>
-                    <input value={userName} onChange={(e) => setUserName(e.target.value)} type='text' placeholder='Username' id='userName' name='userName' />
+                    <input required value={userName} onChange={(e) => setUserName(e.target.value)} type='text' placeholder='Username' id='userName' name='userName' />
 
                     <label for='email'>Email</label>
-                    <input value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Youremail@gmail.com' id='email' name='email' />
+                    <input required value={email} onChange={(e) => setEmail(e.target.value)} type='email' placeholder='Youremail@gmail.com' id='email' name='email' />
 
                     <label for='password'>Password</label>
-                    <input value={password} onChange={(e) => setPassword(e.target.value)} type='password' placeholder='********' id='password' name='password' />
+                    <input required value={password} onChange={(e) => setPassword(e.target.value)} type='password' placeholder='********' id='password' name='password' />
                     <button>Register</button>
                 </form>
                 <div>

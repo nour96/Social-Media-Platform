@@ -17,8 +17,14 @@ import CardActions from '@mui/material/CardActions';
 import Avatar from '@mui/material/Avatar';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import { LikeDislike } from './LikeDislike';
 
 export const PostCard = ({ name, title, content }) => {
+
+
+
   return (
     <div>
       <Card sx={{ width: 600 }}>
@@ -33,9 +39,13 @@ export const PostCard = ({ name, title, content }) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+          {/* <IconButton aria-label="like">
+            <ThumbUpIcon />
           </IconButton>
+          <IconButton aria-label="dislike">
+            <ThumbDownIcon />
+          </IconButton> */}
+          {/* <LikeDislike /> */}
         </CardActions>
       </Card>
     </div>

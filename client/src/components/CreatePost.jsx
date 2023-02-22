@@ -46,7 +46,7 @@ export const CreatePost = () => {
                         />
                     </div>
                 <hr />
-                <button>Save post</button>
+                <button type='submit'>Save post</button>
             </form>
         </div>
     )

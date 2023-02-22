@@ -5,6 +5,7 @@ import { login } from './controllers/login.js';
 import {createPost, showPost, editPost, deletePost, allPosts} from './controllers/postController.js'
 import { userPosts, userProfile } from './controllers/userController.js';
 import { logout } from './controllers/logout.js';
+import { isAuth } from './middlewares/privateRoute.js';
 
 
  const router = Router();
@@ -19,9 +20,11 @@ router.get('/:id/posts', userPosts)
 router.post('/signup', signup)
 router.post('/login', login)
 router.get('/logout', logout)
-router.post('/createPost', createPost)
+router.post('/createPost', isAuth, createPost)
 router.post('/showPost/:id', showPost)
-router.post('/editPost/:id', editPost)
-router.post('/deletePost/:id', deletePost)
+router.post('/editPost/:id', isAuth, editPost)
+router.post('/deletePost/:id', isAuth, deletePost)
+// router.post('/posts/:id/upvote')
+// router.post('/posts/:id/downvote')
 
 export default router;
