@@ -1,22 +1,25 @@
 import mongoose from 'mongoose'
 import { Schema } from 'mongoose'
+import validator from 'validator'
 
 const UserSchema = new Schema({
     userName: {
         type: String,
-        unique: true,
-        required: true
+        unique: [true, 'This username is taken.'],
+        required: [true, 'Enter a username.']
     },
     password: {
         type: String,
-        required: true
+        required: [true, 'Enter a password.'],
+        minLength: [4, 'Password should be at least four characters']
     },
     firstName: String,
     lastName: String,
     email: {
         type: String,
-        unique: true,
-        required: true
+        require: [true, 'Enter an email address.'],
+        unique: [true, 'This email address is taken.'],
+        validate: [validator.isEmail, 'Enter a valid email address.']
     },
     avatar: String,
     favourites: [{ type: Schema.Types.ObjectId, ref: 'Post' }]

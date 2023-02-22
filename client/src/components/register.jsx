@@ -10,14 +10,14 @@ export const Register = ({ onFormSwitch }) => {
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [userName, setUserName] = useState('')
-    const [err, setErr] = useState('')
+    const [err, setErr] = useState(null)
     const navigate = useNavigate();
 
 
 
 
     const handleSubmit = (event) => {
-        // event.preventDefault();
+       event.preventDefault();
 
         axios.post('http://localhost:9080/api/signup', { firstName, lastName, userName, email, password })
             .then((res) => {
@@ -26,8 +26,7 @@ export const Register = ({ onFormSwitch }) => {
                 console.log(res)
             }, (err) => {
                 console.log(err)
-                const message = err.response.data
-                setErr(message)
+                setErr(err.response.data)
             })
     }
 
@@ -57,7 +56,7 @@ export const Register = ({ onFormSwitch }) => {
                     <button>Register</button>
                 </form>
                 <div>
-                    {err && <h3 className="error"> {err} </h3>}
+                    {err && <h3 className="error"> {err.messages} </h3>}
                 </div>
                 <div>
                     <a href='/login'>

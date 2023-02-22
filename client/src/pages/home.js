@@ -16,7 +16,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     fetchPosts();
-  });
+  }, []);
 
   const renderedPosts = posts.map((post) => {
     return (
