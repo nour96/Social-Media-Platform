@@ -22,19 +22,17 @@ import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import { LikeDislike } from './LikeDislike';
 import Delete from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { EditPost } from './EditPost';
 
 
-export const PostCard = ({ name, title, content, id }) => {
+export const PostCard = ({ author, title, content, id }) => {
 
   const { userInfo, token } = useAuth();
-
+  const [isEdit, setIsEdit] = useState(false);
   const handleDeleteSubmit = async (event) => {
     event.preventDefault();
-    const payload = {
-      "token": token
-    }
     axios.delete(`http://localhost:9080/api/post/${id}`, { data: {"token": token} })
       .then
       ((res) => {
@@ -45,11 +43,17 @@ export const PostCard = ({ name, title, content, id }) => {
         });
   };
 
+  const toggleEditMode = (event) => {
+    event.preventDefault();
+    setIsEdit(!isEdit)
+  }
+
   return (
     <div>
-      <Card sx={{ mb: 1 }}>
+      {!isEdit ?
+        <Card sx={{ mb: 1 }}>
         <CardHeader
-          avatar={<Avatar sx={{ bgcolor: red[500] }} aria-label="A">{name[0]}</Avatar>}
+          avatar={<Avatar sx={{ bgcolor: red[500] }} aria-label="A">{author.firstName[0]}</Avatar>}
           title={title}
         />
 
@@ -59,9 +63,17 @@ export const PostCard = ({ name, title, content, id }) => {
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="delete" onClick={handleDeleteSubmit}>
-            <Delete />
-          </IconButton>
+          {userInfo?._id === author._id && 
+            <div>
+              <IconButton aria-label="delete" onClick={handleDeleteSubmit}>
+                <Delete />
+              </IconButton>
+              <IconButton aria-label="edit" onClick={toggleEditMode}>
+                <EditIcon/>
+              </IconButton>
+            </div>
+          }
+
           {/* <IconButton aria-label="like">
             <ThumbUpIcon />
           </IconButton>
@@ -70,7 +82,10 @@ export const PostCard = ({ name, title, content, id }) => {
           </IconButton> */}
           {/* <LikeDislike /> */}
         </CardActions>
-      </Card>
+      </Card> : 
+      <EditPost oldTitle={title} oldContent={content} id={id} setIsEdit={setIsEdit}/>
+    }
+      
     </div>
   );
 };

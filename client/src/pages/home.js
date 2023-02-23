@@ -18,7 +18,7 @@ export const HomePage = () => {
 
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [posts]);
 
   return (
     <>
@@ -31,7 +31,7 @@ export const HomePage = () => {
         <Box>
           {posts.map((post) => (
             <PostCard
-              name={post.author.firstName} title={post.title}
+              author={post.author} title={post.title}
               content={post.content} id={post._id}
             />
           ))}

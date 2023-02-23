@@ -6,10 +6,9 @@ import { Avatar, Button, TextField } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 import { useParams } from 'react-router-dom';
 
-export const EditPost = () => {
-    const [title, setTitle] = useState('');
-    const [content, setContent] = useState('');
-    const { id } = useParams({})
+export const EditPost = ({ oldTitle, oldContent, id, setIsEdit }) => {
+    const [title, setTitle] = useState(oldTitle);
+    const [content, setContent] = useState(oldContent);
     const { userInfo, token } = useAuth();
 
     const user = userInfo?._id
@@ -22,6 +21,7 @@ export const EditPost = () => {
                 console.log(res);
                 setTitle('')
                 setContent('')
+                setIsEdit(false)
             },
                 (err) => {
                     console.log(err);
