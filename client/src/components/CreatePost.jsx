@@ -1,53 +1,71 @@
-import React from 'react'
-import axios from 'axios'
-import { useState } from 'react'
-import { Box } from '@mui/system'
+import React from 'react';
+import axios from 'axios';
+import { useState } from 'react';
+import { Box } from '@mui/system';
+import { Avatar, Button, TextField } from '@mui/material';
+import { useAuth } from '../context/AuthContext';
 
 export const CreatePost = () => {
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        axios.post('http://localhost:9080/api/createPost', { title, content })
-            .then((res) => { console.log(res) }, (err) => {
-                console.log(err)
-            })
-    }
+  const { userInfo, token } = useAuth();
 
-    return (
-        <div className="new-post">
-            {/* <form onSubmit={handleSubmit}>
-            <div class="MuiInput-root">
-                <input class="MuiInput-input" value={content} onChange={(e) => setContent(e.target.value)}/>
-            
-                <input type="submit" value="Submit" />
-                </div>
-            </form> */}
+  
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const id = userInfo._id;
+    axios.post('http://localhost:9080/api/posts', { title, content, token })
+      .then
+      ((res) => {
+        console.log(res);
+        setTitle('')
+        setContent('')
+      },
+        (err) => {
+          console.log(err);
+        });
+  };
+
+  return (
+    <>
+      <Box p={3} mb={3} borderRadius={1} bgcolor="background.paper">
+        <Box display="flex" justifyContent="space-between">
+          <Avatar sx={{ width: 40, height: 40, mr: 1 }}>
+            {userInfo?.firstName.charAt(0)}
+          </Avatar>
+
+          <Box width="100%">
             <form onSubmit={handleSubmit}>
-                <div>
-                    
-                        <input
-                            name="title"
-                            placeholder='Title'
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)} />
-                    
-                </div>
-                <div>
-                    
-                       
-                        <textarea
-                            name="content"
-                            rows={4}
-                            cols={40}
-                            placeholder="share your thoughts..."
-                            value={content} onChange={(e) => setContent(e.target.value)}
-                        />
-                    </div>
-                <hr />
-                <button type='submit'>Save post</button>
+              <Box mb={2}>
+                <TextField
+                  name="title"
+                  placeholder="Post title"
+                  value={title}
+                  fullWidth
+                  onChange={(e) => setTitle(e.target.value)}
+                ></TextField>
+              </Box>
+              <Box mb={2}>
+                <TextField
+                  name="content"
+                  placeholder="share your thoughts..."
+                  fullWidth
+                  multiline
+                  minRows={6}
+                  value={content}
+                  onChange={(e) => setContent(e.target.value)}
+                ></TextField>
+              </Box>
+
+              <Button fullWidth variant="contained" type="submit">
+                Post
+              </Button>
             </form>
-        </div>
-    )
-}
+          </Box>
+        </Box>
+      </Box>
+    </>
+  );
+};

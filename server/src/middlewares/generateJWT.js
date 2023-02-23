@@ -1,16 +1,19 @@
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 
 const options = {
-    expiresIn: '24h'
-}
+  expiresIn: '24h',
+};
 
 const generateJWT = (res, user) => {
-    const { _id, userName } = user;
-    const payload = { _id, userName };
-    const token = jwt.sign(payload, 'FDHFGA486412', options)
-    res.cookie('token', token, {httpOnly: true});
-    console.log(res)
-    return token;
-}
+  const { _id, userName, firstName, lastName } = user;
+  const payload = { _id, userName, firstName, lastName };
+  const token = jwt.sign(payload, 'FDHFGA486412', options);
+  res.cookie('token', token, { httpOnly: false });
 
-export default generateJWT
+  return token;
+
+
+  
+};
+
+export default generateJWT;

@@ -1,21 +1,16 @@
 import Post from '../models/post.js'
 
 export const createPost = async (req, res) => {
-
+    const { _id } = req.user
     const { title, content } = req.body;
     try {
         const post = new Post({
             title,
             content,
-            author: req.user._id
+            author: _id
         })
 
         await post.save();
-
-        // const user = await User.findById(author);
-        // user.posts.push(post._id);
-        // await user.save();
-
         res.status(201).json({ message: 'Post created', post })
 
     } catch (arr) {
@@ -43,25 +38,30 @@ export const showPost = async (req, res) => {
 
 export const editPost = async (req, res) => {
     const { id } = req.params;
+    const { _id } = req.user
+    const { title, content } = req.body
     try {
-        const post = await Post.findById(id);
-        if (!post) {
-            res.status(200).json({ message: 'This post does not exist' })
+        const post = await Post.findById(id)
+        if (post.author == _id) {
+            post.title = title;
+            post.content = content;
+            await post.save();
+            res.status(200).json(post)
+        } else {
+            res.status(402).json({ message: 'You are not authorized to edit this post.' })
         }
-        post.title = req.body.title;
-        post.content = req.body.content;
-        const updatedPost = await post.save();
-        res.status(200).json(updatedPost)
     } catch (err) {
         res.status(500).json({ message: 'Internal error occured!' })
     }
+
 }
 
 export const deletePost = async (req, res) => {
     const { id } = req.params;
+    
     try {
         const post = await Post.findById(id);
-        if (post.author == req.user.id) {
+        if (post.author == req.user._id) {
             await Post.findByIdAndDelete(id)
             res.status(200).json({ message: 'Your post has been deleted.' })
         } else {

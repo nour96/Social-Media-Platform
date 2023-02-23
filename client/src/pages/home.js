@@ -1,17 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { PostCard } from '../components/PostCard';
-import { Box, Container } from '@mui/system';
-import { Grid } from '@mui/material';
+import { Box } from '@mui/system';
 import { CreatePost } from '../components/CreatePost';
 import { Navbar } from '../components/Navbar';
-
+import { useAuth } from '../context/AuthContext';
 
 export const HomePage = () => {
+  const { userInfo } = useAuth();
+
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
-    const res = await axios.get('http://localhost:9080/api/allPosts');
+    const res = await axios.get('http://localhost:9080/api/posts');
     setPosts(res.data);
   };
 
@@ -19,25 +20,23 @@ export const HomePage = () => {
     fetchPosts();
   }, []);
 
-  const renderedPosts = posts.map((post) => {
-    return (
-      <PostCard
-        sx={{ p: 0.5 }}
-        /*name={post.author.firstName}*/ title={post.title}
-        content={post.content}
-      />
-    );
-  });
-
   return (
     <>
-      <Navbar />
-      <Container>
+      <Box display="flex" flexDirection="column" my={10} mx={50}>
+        {userInfo && (
+          <Box width="100%">
+            <CreatePost />
+          </Box>
+        )}
         <Box>
-          <CreatePost />
+          {posts.map((post) => (
+            <PostCard
+              name={post.author.firstName} title={post.title}
+              content={post.content} id={post._id}
+            />
+          ))}
         </Box>
-        <Box>{renderedPosts}</Box>
-      </Container>
+      </Box>
     </>
   );
 };

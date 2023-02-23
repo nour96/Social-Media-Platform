@@ -14,16 +14,19 @@ router.get('/', (req, res) => {
     res.send('Hello !')
 })
 
-router.get('/user/:id', userProfile)
-router.get('/allPosts', allPosts)
-router.get('/:id/posts', userPosts)
 router.post('/signup', signup)
 router.post('/login', login)
 router.get('/logout', logout)
-router.post('/createPost', isAuth, createPost)
-router.post('/showPost/:id', showPost)
-router.post('/editPost/:id', isAuth, editPost)
-router.post('/deletePost/:id', isAuth, deletePost)
+
+router.get('/user/:id', userProfile)
+router.get('/user/:id/posts', userPosts)
+
+router.get('/posts', allPosts)
+router.post('/posts', isAuth, createPost)
+
+router.get('/post/:id', showPost)
+router.put('/post/:id', isAuth, editPost)
+router.delete('/post/:id', isAuth,  deletePost)
 // router.post('/posts/:id/upvote')
 // router.post('/posts/:id/downvote')
 

@@ -1,54 +1,36 @@
-import axios from 'axios';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import IconButton from '@mui/material/IconButton';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
-
-import TextField from '@mui/material/TextField';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom';
 import { useContext } from 'react';
-
+import { useNavigate } from "react-router-dom";
 import { ColorModeContext } from '../context/ColorModeContext';
 import { Typography } from '@mui/material';
-import { useTheme } from '@emotion/react';
+import { useAuth } from '../context/AuthContext';
 
 export const Navbar = () => {
-  const user = false;
-
-  // const [query, setQuery] = useState('')
-
-  
   const { mode, toggleColorMode } = useContext(ColorModeContext);
-  const theme = useTheme();
-
-  const handleLogout = () => {
-    axios.get('http://localhost:3000/api/logout')
-    .then((res)=> {
-      console.log("Logged out...")
-    }, (err) => {
-      console.log("Can't log out...")
-    }) 
-  }
+  const { userInfo, logout } = useAuth();
 
   return (
     <Box
-      bgcolor="background.default"
+      bgcolor="background.paper"
       display="flex"
       justifyContent="space-between"
       alignItems="center"
-      p="7px 30px"
+      px={1}
     >
       <Box>
         <Link
           to="/"
           component={RouterLink}
           display="flex"
-          alignItems="baseline"
+          alignItems="center"
           sx={{ textDecoration: 'none' }}
         >
           <img
@@ -57,24 +39,11 @@ export const Navbar = () => {
             height="50px"
             border="0"
           />
+
           <Typography variant="h5" ml={1}>
             Shinx
           </Typography>
         </Link>
-      </Box>
-
-      <Box width="50%">
-        <TextField /*onChange={(e) => setQuery(e.target.value)}*/
-          variant="outlined"
-          placeholder="Search post title ..."
-          fullWidth
-          InputProps={{
-            style: {
-              fontWeight: 'normal',
-              height: '40px',
-            },
-          }}
-        />
       </Box>
       <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} disableRipple>
         {mode === 'dark' ? (
@@ -88,15 +57,26 @@ export const Navbar = () => {
       </IconButton>
 
       <Box display="flex" justifyContent="space-between" width="22%">
-        {user ? (
-          <Button sx={{ borderColor: 'common.white' }}>
-            <ExitToAppIcon sx={{ mr: '0.5rem' }} />
-          </Button>
-        ) : (
-          <>
-            <Button sx={{ p: '0' }}>
+        {userInfo ? (
+          <Box display="flex" justifyContent="center" alignItems="center">
+            <Button sx={{ p: 0 }} onClick={logout}>
+              <ExitToAppIcon fontSize="medium" />
+            </Button>
+            <Button sx={{ p: 0 }} >
               <PersonOutlineIcon fontSize="large" />
             </Button>
+            <Typography color="secondary" variant="subtitle1">
+              {userInfo.firstName} {userInfo.lastName}
+            </Typography>
+          </Box>
+        ) : (
+          <>
+            <Link href="/login">
+              <Button sx={{ p: '0' }}>
+                {/* <PersonOutlineIcon fontSize="large" /> */}
+                login
+              </Button>
+            </Link>
           </>
         )}
       </Box>
