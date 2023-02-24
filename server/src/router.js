@@ -6,6 +6,7 @@ import {createPost, showPost, editPost, deletePost, allPosts} from './controller
 import { userPosts, userProfile } from './controllers/userController.js';
 import { logout } from './controllers/logout.js';
 import { isAuth } from './middlewares/privateRoute.js';
+import { userValidation } from './middlewares/userValidation.js';
 
 
  const router = Router();
@@ -14,7 +15,7 @@ router.get('/', (req, res) => {
     res.send('Hello !')
 })
 
-router.post('/signup', signup)
+router.post('/signup', userValidation,  signup)
 router.post('/login', login)
 router.get('/logout', logout)
 

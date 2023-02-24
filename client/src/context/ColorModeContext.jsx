@@ -10,8 +10,13 @@ const getDesignTokens = (mode) => ({
       ? {
           // palette values for light mode
           primary: deepOrange,
+          secondary: grey,
           divider: amber[200],
           icon: amber,
+          background: {
+            default: grey[100],
+            paper: '#fff',
+          },
           text: {
             primary: grey[900],
             secondary: grey[800],
@@ -20,17 +25,38 @@ const getDesignTokens = (mode) => ({
       : {
           // palette values for dark mode
           primary: amber,
+          secondary: grey,
           divider: deepOrange[700],
           icon: '#fff',
           background: {
-            default: grey[900],
-            paper: deepOrange[900],
+            default: '#121212',
+            paper: grey[900],
           },
           text: {
             primary: grey[100],
             secondary: grey[500],
           },
         }),
+  },
+  typography: {
+    h1: {
+      color: mode === 'light' ? grey[900] : grey[100],
+    },
+    h2: {
+      color: mode === 'light' ? grey[800] : grey[500],
+    },
+    body1: {
+      color: mode === 'light' ? grey[900] : grey[100],
+    },
+    body2: {
+      color: mode === 'light' ? grey[800] : grey[500],
+    },
+    caption: {
+      color: mode === 'light' ? grey[500] : grey[300],
+    },
+    button: {
+      color: mode === 'light' ? '#fff' : grey[100],
+    },
   },
 });
 

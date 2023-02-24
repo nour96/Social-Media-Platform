@@ -26,66 +26,69 @@ import Delete from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { EditPost } from './EditPost';
 
-
 export const PostCard = ({ author, title, content, id }) => {
-
   const { userInfo, token } = useAuth();
   const [isEdit, setIsEdit] = useState(false);
   const handleDeleteSubmit = async (event) => {
     event.preventDefault();
-    axios.delete(`http://localhost:9080/api/post/${id}`, { data: {"token": token} })
-      .then
-      ((res) => {
-        console.log(res);
-      },
+    axios
+      .delete(`http://localhost:9080/api/post/${id}`, {
+        data: { token: token },
+      })
+      .then(
+        (res) => {
+          console.log(res);
+        },
         (err) => {
           console.log(err);
-        });
+        }
+      );
   };
 
   const toggleEditMode = (event) => {
     event.preventDefault();
-    setIsEdit(!isEdit)
-  }
+    setIsEdit(!isEdit);
+  };
 
   return (
     <div>
-      {!isEdit ?
+      {!isEdit ? (
         <Card sx={{ mb: 1 }}>
-        <CardHeader
-          avatar={<Avatar sx={{ bgcolor: red[500] }} aria-label="A">{author.firstName[0]}</Avatar>}
-          title={title}
+          <CardHeader
+            avatar={
+              <Avatar sx={{ bgcolor: red[500] }} aria-label="A">
+                {author?.firstName[0]}
+              </Avatar>
+            }
+            title={title}
+          />
+
+          <CardContent>
+            <Typography variant="body2" color="text.secondary">
+              {content}
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            {userInfo?._id === author?._id && (
+              <div>
+                <IconButton aria-label="delete" onClick={handleDeleteSubmit}>
+                  <Delete />
+                </IconButton>
+                <IconButton aria-label="edit" onClick={toggleEditMode}>
+                  <EditIcon />
+                </IconButton>
+              </div>
+            )}
+          </CardActions>
+        </Card>
+      ) : (
+        <EditPost
+          oldTitle={title}
+          oldContent={content}
+          id={id}
+          setIsEdit={setIsEdit}
         />
-
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {content}
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          {userInfo?._id === author._id && 
-            <div>
-              <IconButton aria-label="delete" onClick={handleDeleteSubmit}>
-                <Delete />
-              </IconButton>
-              <IconButton aria-label="edit" onClick={toggleEditMode}>
-                <EditIcon/>
-              </IconButton>
-            </div>
-          }
-
-          {/* <IconButton aria-label="like">
-            <ThumbUpIcon />
-          </IconButton>
-          <IconButton aria-label="dislike">
-            <ThumbDownIcon />
-          </IconButton> */}
-          {/* <LikeDislike /> */}
-        </CardActions>
-      </Card> : 
-      <EditPost oldTitle={title} oldContent={content} id={id} setIsEdit={setIsEdit}/>
-    }
-      
+      )}
     </div>
   );
 };

@@ -4,8 +4,8 @@ import './App.css';
 import { Login } from './components/Login.jsx';
 import { Register } from './components/Register.jsx';
 import { ColorContextProvider } from './context/ColorModeContext';
-import { HomePage } from './pages/home.js';
-import { UserProfile } from './pages/userProfile';
+import { HomePage } from './pages/Home.jsx';
+import { Profile } from './pages/Profile.jsx';
 import { useTheme } from '@emotion/react';
 import { AuthProvider } from './context/AuthContext';
 import { Navbar } from './components/Navbar';
@@ -37,7 +37,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/:id" element={<UserProfile />} />
+              <Route path="/user/:id" element={<Profile />} />
               <Route path="/editpost/:id" element={<EditPost />} />
             </Routes>
           </div>

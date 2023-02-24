@@ -8,7 +8,7 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom';
 import { useContext } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import { ColorModeContext } from '../context/ColorModeContext';
 import { Typography } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
@@ -62,9 +62,11 @@ export const Navbar = () => {
             <Button sx={{ p: 0 }} onClick={logout}>
               <ExitToAppIcon fontSize="medium" />
             </Button>
-            <Button sx={{ p: 0 }} >
-              <PersonOutlineIcon fontSize="large" />
-            </Button>
+            <Link href={`/user/${userInfo?._id}`}>
+              <Button sx={{ p: 0 }}>
+                <PersonOutlineIcon fontSize="large" />
+              </Button>
+            </Link>
             <Typography color="secondary" variant="subtitle1">
               {userInfo.firstName} {userInfo.lastName}
             </Typography>
