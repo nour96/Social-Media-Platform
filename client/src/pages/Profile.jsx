@@ -11,6 +11,7 @@ import { Avatar, Tab, Tabs, Typography } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 
 import { ColorModeContext } from '../context/ColorModeContext';
+import {Pagination} from '@mui/material';
 
 export const Profile = () => {
   const { id } = useParams({});
@@ -19,17 +20,21 @@ export const Profile = () => {
   const { mode } = useContext(ColorModeContext);
 
   const [userPosts, setUserPosts] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const background =
     mode === 'dark'
       ? 'https://images.unsplash.com/photo-1589810264340-0ce27bfbf751?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
       : 'https://images.unsplash.com/photo-1548504778-b14db6c34b04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80';
 
-  const userPost = async () => {
-    const result = await axios.get(
-      `http://localhost:9080/api/user/${id}/posts`
+  const userPost = async (page, limit) => {
+    const res = await axios.get(
+      `http://localhost:9080/api/user/${id}/posts?page=${page}&limit=${limit}`
     );
-    setUserPosts(result.data);
+    setUserPosts(res.data.posts);
+    setTotalPages(res.data.totalPages);
+
   };
 
   const [value, setValue] = React.useState(0);
@@ -38,9 +43,13 @@ export const Profile = () => {
     setValue(newValue);
   };
 
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
+
   useEffect(() => {
-    userPost();
-  }, [userPosts]);
+    userPost(currentPage, 5);
+  }, [currentPage]);
 
   return (
     <Box pt={5} display="flex" justifyContent="center" alignItems="center">
@@ -91,8 +100,17 @@ export const Profile = () => {
               <Typography>The second tab</Typography>
             </Box>
           )}
+          <Box>
+          <Pagination
+            count={totalPages}
+            page={currentPage}
+            onChange={handlePageChange}
+          />
         </Box>
+
       </Box>
     </Box>
+    </Box >
+    
   );
 };

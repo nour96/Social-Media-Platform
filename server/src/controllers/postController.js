@@ -19,9 +19,27 @@ export const createPost = async (req, res) => {
 }
 
 export const allPosts = async (req, res) => {
-    const posts = await Post.find().populate('author', 'firstName lastName avatar userName')
-    res.status(200).json(posts)
-}
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+  
+    const startIndex = (page - 1) * limit;
+    const endIndex = page * limit;
+  
+    const total = await Post.countDocuments();
+  
+    const posts = await Post.find()
+      .populate('author', 'firstName lastName avatar userName')
+      .skip(startIndex)
+      .limit(limit);
+  
+    const totalPages = Math.ceil(total / limit);
+  
+    res.status(200).json({
+      posts,
+      currentPage: page,
+      totalPages,
+    });
+  };
 
 export const showPost = async (req, res) => {
     const { id } = req.params;
