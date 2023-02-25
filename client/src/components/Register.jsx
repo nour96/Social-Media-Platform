@@ -36,7 +36,6 @@ export const Register = ({ onFormSwitch }) => {
         },
         validationSchema: schema,
         onSubmit: (values) => {
-            console.log(JSON.stringify(values));
             axios.post('http://localhost:9080/api/signup', values)
                 .then((res) => {
                     setErr(null)
@@ -58,27 +57,27 @@ export const Register = ({ onFormSwitch }) => {
                 <h2>Register</h2>
                 <form className='register-form' onSubmit={handleSubmit}>
                     <label for='firstName'>First name</label>
-                    <input requir onChange={handleChange} onBlur={handleBlur} type='text' placeholder='First name' id='firstName' name='firstName' />
+                    <input onChange={handleChange} onBlur={handleBlur} type='text' placeholder='First name' id='firstName' name='firstName' />
                     {errors.firstName
                         ? <ErrorMsg msg={errors.firstName} />
                         : null}
                     <label for='lastName'>Last name</label>
-                    <input required onChange={handleChange} onBlur={handleBlur} type='text' placeholder='Last name' id='lastName' name='lastName' />
+                    <input onChange={handleChange} onBlur={handleBlur} type='text' placeholder='Last name' id='lastName' name='lastName' />
                     {touched.lastName && errors.lastName
                         ? <ErrorMsg msg={errors.lastName} />
                         : null}
                     <label for='userName'>Username</label>
-                    <input required onChange={handleChange} onBlur={handleBlur} type='text' placeholder='Username' id='userName' name='userName' />
+                    <input onChange={handleChange} onBlur={handleBlur} type='text' placeholder='Username' id='userName' name='userName' />
                     {touched.userName && errors.userName
                         ? <ErrorMsg msg={errors.userName} />
                         : null}
                     <label for='email'>Email</label>
-                    <input required onChange={handleChange} onBlur={handleBlur} type='email' placeholder='Youremail@gmail.com' id='email' name='email' />
+                    <input onChange={handleChange} onBlur={handleBlur} type='email' placeholder='Youremail@gmail.com' id='email' name='email' />
                     {touched.email && errors.email
                         ? <ErrorMsg msg={errors.email} />
                         : null}
                     <label for='password'>Password</label>
-                    <input required onChange={handleChange} onBlur={handleBlur} type='password' placeholder='********' id='password' name='password' />
+                    <input onChange={handleChange} onBlur={handleBlur} type='password' placeholder='********' id='password' name='password' />
                     {touched.password && errors.password
                         ? <ErrorMsg msg={errors.password} />
                         : null}

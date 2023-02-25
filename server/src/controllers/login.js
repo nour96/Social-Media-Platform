@@ -20,6 +20,6 @@ export const login = async (req, res) => {
 
     } else {
 
-        res.status(401).json({error: true, message: "No user found with the given email address." })
+        res.status(401).json({error: true, message: "Invalid email or password." })
     }
 }

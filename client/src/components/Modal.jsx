@@ -1,16 +1,32 @@
-import React from 'react';
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
-export const Modal = ({ msg, onOk, onClose }) => {
-    return (
-        <div className="modal" onClick={onClose}>
-            <div className="modal-content" onClick={e => e.stopPropagation()}>
-                <div className="modal-header"></div>
-                <h4 className="modal-title">Modal title</h4> </div>
-            <div className="modal-body" >This is modal content</div>
-            <div className="modal-footer">
-                <button onClick={props.onClose} className="button">Close</button>
-            </div>
-        </div>
+export const Modal = ({show, onClose, onOk, title, content}) => {
+    return (<Dialog
+    open={show}
+    onClose={onClose}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+  >
+    <DialogTitle id="alert-dialog-title">
+      {title}
+    </DialogTitle>
+    <DialogContent>
+      <DialogContentText id="alert-dialog-description">
+       {content}
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button onClick={onClose}>Cancel</Button>
+      <Button onClick={onOk} autoFocus>
+        Ok
+      </Button>
+    </DialogActions>
+  </Dialog>
   );
-};
-
+}
