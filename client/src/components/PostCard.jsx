@@ -13,26 +13,24 @@ import Delete from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { EditPost } from './EditPost';
 
-export const PostCard = ({ id, author, title, content, date, saved }) => {
+export const PostCard = ({
+  id,
+  author,
+  title,
+  content,
+  date,
+  userFavourites,
+  handleSavePost,
+  onDelete,
+}) => {
   const { userInfo, token } = useAuth();
   const [isEdit, setIsEdit] = useState(false);
 
-  console.log(saved);
+  const isSaved = userFavourites?.includes(id);
 
   const handleDeleteSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .delete(`http://localhost:9080/api/post/${id}`, {
-        data: { token: token },
-      })
-      .then(
-        (res) => {
-          console.log(res);
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    onDelete(id);
   };
 
   const toggleEditMode = (event) => {
@@ -55,13 +53,16 @@ export const PostCard = ({ id, author, title, content, date, saved }) => {
         >
           <Box mb={2} justifyContent="space-between" display="flex">
             <Box display="flex" justifyContent="center" alignItems="center">
-              <Avatar  sx={{ bgcolor: red[500], mr: 1 }}>
+              <Avatar sx={{ bgcolor: red[500], mr: 1 }}>
                 {author?.firstName[0]}
               </Avatar>
-              <Link href={`/user/${author?._id}`} style= {{textDecoration: 'none'}}>
-              <Typography mr={0.5}>
-                {author?.firstName} {author?.lastName}
-              </Typography>
+              <Link
+                href={`/user/${author?._id}`}
+                style={{ textDecoration: 'none' }}
+              >
+                <Typography mr={0.5}>
+                  {author?.firstName} {author?.lastName}
+                </Typography>
               </Link>
               <Typography variant="caption">@{author?.userName}</Typography>
               {date && (
@@ -81,8 +82,8 @@ export const PostCard = ({ id, author, title, content, date, saved }) => {
                   </IconButton>
                 </>
               )}
-              <IconButton sx={{ px: 0.3 }}>
-                {saved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+              <IconButton sx={{ px: 0.3 }} onClick={() => handleSavePost(id)}>
+                {isSaved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
               </IconButton>
             </Box>
           </Box>

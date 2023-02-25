@@ -5,7 +5,7 @@ import { Box } from '@mui/system';
 import { Avatar, Button, TextField } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 
-export const CreatePost = () => {
+export const CreatePost = ({ onSubmit }) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
@@ -13,19 +13,13 @@ export const CreatePost = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const id = userInfo._id;
-    axios
-      .post('http://localhost:9080/api/posts', { title, content, token })
-      .then(
-        (res) => {
-          console.log(res);
-          setTitle('');
-          setContent('');
-        },
-        (err) => {
-          console.log(err);
-        }
-      );
+    try {
+      onSubmit(title, content, token);
+      setTitle('');
+      setContent('');
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

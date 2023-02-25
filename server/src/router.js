@@ -9,6 +9,7 @@ import {
   allPosts,
 } from './controllers/postController.js';
 import {
+  addPostToFavorites,
   userFavourite,
   userPosts,
   userProfile,
@@ -30,6 +31,8 @@ router.get('/logout', logout);
 router.get('/user/:id', userProfile);
 router.get('/user/:id/posts', userPosts);
 router.get('/user/:id/favourite', userFavourite);
+
+router.post('/favourite', addPostToFavorites);
 
 router.get('/posts', allPosts);
 router.post('/posts', isAuth, createPost);

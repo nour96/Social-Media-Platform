@@ -44,7 +44,8 @@ export const Navbar = () => {
             Shinx
           </Typography>
         </Link>
-      </Box>
+      </Box>        
+  
       <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} disableRipple>
         {mode === 'dark' ? (
           <Brightness4Icon color="primary" />

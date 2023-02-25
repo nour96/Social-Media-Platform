@@ -1,14 +1,13 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PostCard } from '../components/PostCard';
 import { Box } from '@mui/system';
 import { CreatePost } from '../components/CreatePost';
-import { Navbar } from '../components/Navbar';
 import { useAuth } from '../context/AuthContext';
 import { Pagination } from '@mui/material';
 
 export const HomePage = () => {
-  const { userInfo } = useAuth();
+  const { userInfo, token } = useAuth();
 
   const [posts, setPosts] = useState([]);
   const [userFavourites, setUserFavourites] = useState([]);
@@ -24,20 +23,51 @@ export const HomePage = () => {
     setTotalPages(res.data.totalPages);
   };
 
-  const userFavourite = async () => {
-    const res = await axios.get(
-      `http://localhost:9080/api/user/${userInfo?._id}/favourite`
-    );
-    setUserFavourites(res.data.posts.favourites);
+  const handleSavePost = async (postId) => {
+    const res = await axios.post('http://localhost:9080/api/favourite', {
+      postId,
+      userId: userInfo?._id,
+    });
+    setUserFavourites(res.data.data);
+  };
+
+  const handleCreatePost = async (title, content, token) => {
+    try {
+      await axios.post('http://localhost:9080/api/posts', {
+        title,
+        content,
+        token,
+      });
+      fetchPosts(currentPage, 5);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleDeletePost = async (id) => {
+    try {
+      await axios.delete(`http://localhost:9080/api/post/${id}`, {
+        data: { token: token },
+      });
+      fetchPosts(currentPage, 5);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
+    const userFavourite = async () => {
+      const res = await axios.get(
+        `http://localhost:9080/api/user/${userInfo?._id}/favourite`
+      );
+      setUserFavourites(res.data.posts.favourites);
+    };
+
     fetchPosts(currentPage, 5);
     if (userInfo?._id) {
-      console.log(userInfo?._id);
       userFavourite();
     }
-  }, [currentPage]);
+  }, [currentPage, userInfo?._id]);
 
   const handlePageChange = (event, value) => {
     setCurrentPage(value);
@@ -49,7 +79,7 @@ export const HomePage = () => {
         <Box display="flex" flexDirection="column" width="55%">
           {userInfo && (
             <Box width="100%">
-              <CreatePost />
+              <CreatePost onSubmit={handleCreatePost} />
             </Box>
           )}
           <Box>
@@ -61,7 +91,9 @@ export const HomePage = () => {
                 title={post.title}
                 content={post.content}
                 date={post.createdAt}
-                saved={userFavourites.some((fav) => fav._id === post._id)}
+                userFavourites={userFavourites.map((fav) => fav._id)}
+                handleSavePost={handleSavePost}
+                onDelete={handleDeletePost}
               />
             ))}
           </Box>

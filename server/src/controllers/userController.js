@@ -78,3 +78,42 @@ export const userFavourite = async (req, res) => {
     res.status(500).json({ message: 'Internal error occured!' });
   }
 };
+
+export const addPostToFavorites = async (req, res) => {
+  try {
+    const { userId, postId } = req.body;
+
+    const user = await User.findById(userId).populate({
+      path: 'favourites',
+      populate: { path: 'author' },
+    });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    const post = await Post.findById(postId);
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    const isPostInFavorites = user.favourites.some((fav) => fav.equals(postId));
+
+    if (isPostInFavorites) {
+      user.favourites.pull(postId);
+      await user.save();
+      res.status(200).json({
+        data: user.favourites,
+        message: 'Post removed from favorites',
+      });
+    } else {
+      user.favourites.push(postId);
+      await user.save();
+      res
+        .status(200)
+        .json({ data: user.favourites, message: 'Post added to favorites' });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Something went wrong' });
+  }
+};

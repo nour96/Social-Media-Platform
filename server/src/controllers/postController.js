@@ -78,6 +78,8 @@ export const editPost = async (req, res) => {
 export const deletePost = async (req, res) => {
   const { id } = req.params;
 
+  console.log(id);
+
   try {
     const post = await Post.findById(id);
     if (post.author == req.user._id) {
