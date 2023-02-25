@@ -19,6 +19,8 @@ export const Profile = () => {
   const { userInfo: user } = useAuth();
   const { mode } = useContext(ColorModeContext);
 
+  const [profile, setProfile] = useState(null)
+
   const [userPosts, setUserPosts] = useState([]);
   const [userFavourites, setUserFavourites] = useState([]);
 
@@ -29,6 +31,19 @@ export const Profile = () => {
     mode === 'dark'
       ? 'https://images.unsplash.com/photo-1589810264340-0ce27bfbf751?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
       : 'https://images.unsplash.com/photo-1548504778-b14db6c34b04?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80';
+
+
+  const userProfile = async () => {
+    const res = await axios.get(
+      `http://localhost:9080/api/user/${id}`
+    );
+    if (user !== res.data) {
+      setProfile(res.data)
+    } else {
+      setProfile(user)
+    }
+  }
+
 
   const userPost = async (page, limit) => {
     const res = await axios.get(
@@ -58,9 +73,10 @@ export const Profile = () => {
   };
 
   useEffect(() => {
+    userProfile();
     userPost(currentPage, 5);
     userFavourite(currentPage, 5);
-  }, [currentPage]);
+  }, [profile, currentPage]);
 
   return (
     <Box py={5} display="flex" justifyContent="center" alignItems="center">
@@ -83,22 +99,22 @@ export const Profile = () => {
             }}
           >
             <Avatar sx={{ width: 80, height: 80, mr: 1 }}>
-              {user?.firstName.charAt(0)}
+              {profile?.firstName.charAt(0)}
             </Avatar>
           </Box>
         </Box>
 
         <Box py={5} ml={2}>
           <Typography sx={{ fontWeight: '500' }}>
-            {user?.firstName} {user?.lastName}
+            {profile?.firstName} {profile?.lastName}
           </Typography>
           <Typography sx={{ fontSize: '14px', color: '#555' }}>
-            @{user?.userName}
+            @{profile?.userName}
           </Typography>
         </Box>
         <Tabs value={value} onChange={handleChange}>
           <Tab label="Posts" />
-          <Tab label="Favourties" />
+          <Tab label="Favourites" />
         </Tabs>
 
         <Box sx={{ padding: 2 }}>

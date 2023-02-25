@@ -62,6 +62,11 @@ export const EditPost = ({ oldTitle, oldContent, id, setIsEdit }) => {
                             <Button fullWidth variant="contained" type="submit">
                                 Post
                             </Button>
+                            <Box marginTop={1}>
+                            <Button  fullWidth variant="outlined" onClick={()=>{setIsEdit(false)}}>
+                                Cancel
+                            </Button>
+                            </Box>
                         </form>
                     </Box>
                 </Box>

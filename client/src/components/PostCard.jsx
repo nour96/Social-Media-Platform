@@ -8,7 +8,7 @@ import Avatar from '@mui/material/Avatar';
 import { red } from '@mui/material/colors';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
-
+import Link from '@mui/material/Link';
 import Delete from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { EditPost } from './EditPost';
@@ -55,12 +55,14 @@ export const PostCard = ({ id, author, title, content, date, saved }) => {
         >
           <Box mb={2} justifyContent="space-between" display="flex">
             <Box display="flex" justifyContent="center" alignItems="center">
-              <Avatar sx={{ bgcolor: red[500], mr: 1 }}>
+              <Avatar  sx={{ bgcolor: red[500], mr: 1 }}>
                 {author?.firstName[0]}
               </Avatar>
+              <Link href={`/user/${author?._id}`} style= {{textDecoration: 'none'}}>
               <Typography mr={0.5}>
                 {author?.firstName} {author?.lastName}
               </Typography>
+              </Link>
               <Typography variant="caption">@{author?.userName}</Typography>
               {date && (
                 <Typography variant="caption" ml={0.3}>
