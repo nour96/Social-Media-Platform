@@ -1,5 +1,5 @@
 # Shinx :cat2: :paw_prints:
-Shinx is a social media application that allows users to share their thoughts through text-based posts.
+Welcome to Shinx, the social media app that's all about expressing yourself and sharing your thoughts with the world. Our cat logo symbolizes the curiosity and playfulness that's at the heart of everything we do. With Shinx, you can post whatever's on your mind, whether it's a witty observation, a heartfelt message, or just a silly meme. Plus, you can save your favorite posts from other users to enjoy later. So why wait? Join the Shinx community today and start sharing your unique perspective with the world!
 
 ## User Journey :airplane:
 **As a shinx user**
