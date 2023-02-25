@@ -5,6 +5,9 @@ const options = {
 };
 
 const generateJWT = (res, user) => {
+  if (!user || !res) {
+    return "Invalid data!";
+  }
   const { _id, userName, firstName, lastName } = user;
   const payload = { _id, userName, firstName, lastName };
   const token = jwt.sign(payload, 'FDHFGA486412', options);
