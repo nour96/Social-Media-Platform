@@ -16,7 +16,7 @@ The user can register/login to the website through email & password. Shinx users
 - I want to be able to edit and delete what I've posted.
 - I want to see all posts in Shinx.
 - I want to visit other users profile pages.
-- I want to visit what I like a well-organized list where I can find them whenever I want.
+- I want to visit what I like in a well-organized list.
 
 ## Tech Stack
 
