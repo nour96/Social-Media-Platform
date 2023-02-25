@@ -37,7 +37,7 @@ The user can register/login to the website through email & password. Shinx users
 
 ## How To Run The App locally
 
-1. clone repo
+1. Clone repo
 2. Go to server folder and run `npm i`
 3. Go to server/src and run `nodemon app.js`
 4. Go to client folder and run `npm i`
