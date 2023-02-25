@@ -23,16 +23,13 @@ The user can register/login to the website through email & password. Shinx users
 ### Frontend
 
 - [React](https://facebook.github.io/react/)
-- [React router](https://reactrouter.com/en/main)
 - [Material Ui](https://mui.com/)
-- [Formik](https://formik.org/)
-- [Yup](https://www.npmjs.com/package/yup)
+
 
 ### Backend
 - [Node.js](https://nodejs.org/en/)
 - [Express](http://expressjs.com/)
-- [Mongoose](https://mongoosejs.com/)
-- [Joi](https://joi.dev/)
+- [Mongodb](https://mongoosejs.com/)
 
 ## Prototype
 ![](https://i.imgur.com/7E8iLVM.jpeg)
