@@ -19,7 +19,7 @@ export const Navbar = () => {
 
   const logo =
     mode === 'dark'
-      ? 'https://www.slazzer.com/downloads/de7f7d50-b4b7-11ed-bef4-42010a80000a/download_prev_ui.png'
+      ? 'https://i.ibb.co/sJ5XkGm/download-prev-ui.png'
       : 'https://i.ibb.co/Q8Z8Vy4/Screenshot-2023-02-20-234556.png';
 
   return (
