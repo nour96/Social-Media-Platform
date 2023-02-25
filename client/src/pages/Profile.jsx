@@ -11,7 +11,7 @@ import { Avatar, Tab, Tabs, Typography } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 
 import { ColorModeContext } from '../context/ColorModeContext';
-import {Pagination} from '@mui/material';
+import { Pagination } from '@mui/material';
 
 export const Profile = () => {
   const { id } = useParams({});
@@ -20,6 +20,8 @@ export const Profile = () => {
   const { mode } = useContext(ColorModeContext);
 
   const [userPosts, setUserPosts] = useState([]);
+  const [userFavourites, setUserFavourites] = useState([]);
+
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -34,7 +36,15 @@ export const Profile = () => {
     );
     setUserPosts(res.data.posts);
     setTotalPages(res.data.totalPages);
+  };
 
+  const userFavourite = async (page, limit) => {
+    const res = await axios.get(
+      `http://localhost:9080/api/user/${id}/favourite?page=${page}&limit=${limit}`
+    );
+
+    setUserFavourites(res.data.posts.favourites);
+    setTotalPages(res.data.totalPages);
   };
 
   const [value, setValue] = React.useState(0);
@@ -49,10 +59,11 @@ export const Profile = () => {
 
   useEffect(() => {
     userPost(currentPage, 5);
+    userFavourite(currentPage, 5);
   }, [currentPage]);
 
   return (
-    <Box pt={5} display="flex" justifyContent="center" alignItems="center">
+    <Box py={5} display="flex" justifyContent="center" alignItems="center">
       <Box width="65%" bgcolor="background.paper">
         <Box position="relative">
           <img
@@ -93,24 +104,30 @@ export const Profile = () => {
         <Box sx={{ padding: 2 }}>
           {value === 0 &&
             userPosts.map((post) => (
-              <PostCard title={post.title} content={post.content}></PostCard>
+              <PostCard
+                title={post.title}
+                content={post.content}
+                author={post.author}
+              ></PostCard>
             ))}
-          {value === 1 && (
-            <Box>
-              <Typography>The second tab</Typography>
-            </Box>
-          )}
+          {value === 1 &&
+            userFavourites.map((post) => (
+              <PostCard
+                title={post.title}
+                content={post.content}
+                author={post.author}
+                saved
+              ></PostCard>
+            ))}
           <Box>
-          <Pagination
-            count={totalPages}
-            page={currentPage}
-            onChange={handlePageChange}
-          />
+            <Pagination
+              count={totalPages}
+              page={currentPage}
+              onChange={handlePageChange}
+            />
+          </Box>
         </Box>
-
       </Box>
     </Box>
-    </Box >
-    
   );
 };

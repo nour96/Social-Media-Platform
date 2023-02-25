@@ -11,21 +11,21 @@ export const CreatePost = () => {
 
   const { userInfo, token } = useAuth();
 
-  
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const id = userInfo._id;
-    axios.post('http://localhost:9080/api/posts', { title, content, token })
-      .then
-      ((res) => {
-        console.log(res);
-        setTitle('')
-        setContent('')
-      },
+    axios
+      .post('http://localhost:9080/api/posts', { title, content, token })
+      .then(
+        (res) => {
+          console.log(res);
+          setTitle('');
+          setContent('');
+        },
         (err) => {
           console.log(err);
-        });
+        }
+      );
   };
 
   return (
@@ -44,6 +44,7 @@ export const CreatePost = () => {
                   placeholder="Post title"
                   value={title}
                   fullWidth
+                  size="small"
                   onChange={(e) => setTitle(e.target.value)}
                 ></TextField>
               </Box>
@@ -53,13 +54,18 @@ export const CreatePost = () => {
                   placeholder="share your thoughts..."
                   fullWidth
                   multiline
-                  minRows={6}
+                  minRows={4}
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
                 ></TextField>
               </Box>
 
-              <Button fullWidth variant="contained" type="submit">
+              <Button
+                fullWidth
+                variant="contained"
+                type="submit"
+                disabled={title.length === 0 || content.length === 0}
+              >
                 Post
               </Button>
             </form>

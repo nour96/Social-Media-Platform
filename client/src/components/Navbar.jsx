@@ -17,6 +17,11 @@ export const Navbar = () => {
   const { mode, toggleColorMode } = useContext(ColorModeContext);
   const { userInfo, logout } = useAuth();
 
+  const logo =
+    mode === 'dark'
+      ? 'https://www.slazzer.com/downloads/de7f7d50-b4b7-11ed-bef4-42010a80000a/download_prev_ui.png'
+      : 'https://i.ibb.co/Q8Z8Vy4/Screenshot-2023-02-20-234556.png';
+
   return (
     <Box
       bgcolor="background.paper"
@@ -33,12 +38,7 @@ export const Navbar = () => {
           alignItems="center"
           sx={{ textDecoration: 'none' }}
         >
-          <img
-            src="https://i.ibb.co/Q8Z8Vy4/Screenshot-2023-02-20-234556.png"
-            alt="logo"
-            height="50px"
-            border="0"
-          />
+          <img src={logo} alt="logo" height="50px" border="0" />
 
           <Typography variant="h5" ml={1}>
             Shinx

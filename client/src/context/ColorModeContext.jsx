@@ -16,6 +16,7 @@ const getDesignTokens = (mode) => ({
           background: {
             default: grey[100],
             paper: '#fff',
+            card: grey[50],
           },
           text: {
             primary: grey[900],
@@ -31,6 +32,7 @@ const getDesignTokens = (mode) => ({
           background: {
             default: '#121212',
             paper: grey[900],
+            card: grey[800],
           },
           text: {
             primary: grey[100],
@@ -45,11 +47,14 @@ const getDesignTokens = (mode) => ({
     h2: {
       color: mode === 'light' ? grey[800] : grey[500],
     },
+    h6: {
+      color: mode === 'light' ? grey[900] : '#eeeeee',
+    },
     body1: {
       color: mode === 'light' ? grey[900] : grey[100],
     },
     body2: {
-      color: mode === 'light' ? grey[800] : grey[500],
+      color: mode === 'light' ? grey[800] : grey[300],
     },
     caption: {
       color: mode === 'light' ? grey[500] : grey[300],
