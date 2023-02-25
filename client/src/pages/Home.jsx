@@ -4,7 +4,7 @@ import { PostCard } from '../components/PostCard';
 import { Box } from '@mui/system';
 import { CreatePost } from '../components/CreatePost';
 import { useAuth } from '../context/AuthContext';
-import { Pagination } from '@mui/material';
+import { Pagination, Typography } from '@mui/material';
 
 export const HomePage = () => {
   const { userInfo, token } = useAuth();

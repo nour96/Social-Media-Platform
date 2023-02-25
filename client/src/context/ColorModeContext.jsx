@@ -41,6 +41,7 @@ const getDesignTokens = (mode) => ({
         }),
   },
   typography: {
+    fontFamily: `Lato,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"`,
     h1: {
       color: mode === 'light' ? grey[900] : grey[100],
     },
@@ -61,6 +62,9 @@ const getDesignTokens = (mode) => ({
     },
     button: {
       color: mode === 'light' ? '#fff' : grey[100],
+    },
+    subtitle1: {
+      color: mode === 'light' ? grey[900] : grey[100],
     },
   },
 });
